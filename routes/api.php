@@ -1,7 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\SubcategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-
-    'prefix' => 'auth'
-
-], function ($router) {
+Route::group(['prefix' => 'auth'], function () {
 
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
@@ -26,3 +27,10 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
 });
+
+Route::apiResource('products', ProductController::class);
+Route::apiResource('brands', BrandController::class);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('sub-categories', SubcategoryController::class);
+Route::apiResource('orders', OrderController::class);
+Route::apiResource('reviews', ProductReviewController::class);
