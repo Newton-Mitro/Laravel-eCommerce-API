@@ -14,7 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return response(Product::where('is_active', 1)
+        ->orderBy('product_name')
+        ->get());
     }
 
     /**
@@ -25,7 +27,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product($request->all());
+        if($product->save()){
+            return response(["success"],200);
+        }else{
+            return response(["faild"],400);
+        }
     }
 
     /**

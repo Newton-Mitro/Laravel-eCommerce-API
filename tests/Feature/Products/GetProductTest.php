@@ -15,7 +15,7 @@ class GetProductTest extends TestCase
      */
     public function test_get_products_route()
     {
-        $response = $this->get('http://127.0.0.1:8000/api/products');
+        $response = $this->getJson(route('products.index'));
         $response->assertStatus(200);
     }
 
@@ -26,8 +26,8 @@ class GetProductTest extends TestCase
      */
     public function test_get_products()
     {
-        $response = $this->get('http://127.0.0.1:8000/api/products');
-        $response->assertStatus(200);
+        $products = $this->getJson(route('products.index'));
+        $this->assertGreaterThan(0,count($products->json()));
     }
 
 
