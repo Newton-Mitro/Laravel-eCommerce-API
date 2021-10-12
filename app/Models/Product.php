@@ -19,14 +19,14 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     public function subcatagory()
     {
         return $this->belongsTo(Subcategory::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function productUnit()

@@ -14,8 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response(Product::where('is_active', 1)
+        return response(Product::where('is_active', 0)
         ->orderBy('product_name')
+        ->with(['brand','subcatagory','productUnit','productReviews','category'])
         ->get());
     }
 
