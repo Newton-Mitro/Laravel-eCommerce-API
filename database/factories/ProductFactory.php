@@ -26,13 +26,14 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
+            'product_code' => $this->faker->numerify('##########'),
             'product_name' => $this->faker->words(3,true),
-            'product_discription' => $this->faker->paragraph(3,true),
+            'short_discription' => $this->faker->paragraph(3,true),
+            'long_discription' => $this->faker->paragraph(3,true),
             'stock' => $this->faker->numberBetween(1,10),
             'price' => $this->faker->numberBetween(50,1000),
             'discount' => $this->faker->numberBetween(5,20),
-            'is_active' => $this->faker->boolean(),
-            'product_image_url' => $this->faker->imageUrl(640, 480, 'cats', true, 'Faker', true),
+            'active' => $this->faker->boolean(),
             'category_id' => function ()
             {
                 return Category::all()->random();

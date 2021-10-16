@@ -17,7 +17,7 @@ class CreateOrderItemsTable extends Migration
             $table->id();
             $table->string('product_code');
             $table->string('product_name');
-            $table->string('brand');
+            $table->string('brand')->nullable();
             $table->integer('qty');
             $table->decimal('unit_price');
             $table->timestamps();

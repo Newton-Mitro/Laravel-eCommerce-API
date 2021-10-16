@@ -17,16 +17,17 @@ class CreateProductsView extends Migration
         CREATE VIEW view_products
         AS
         SELECT
+            products.`product_code`,
             products.`product_name`,
-            products.`product_discription`,
+            products.`short_discription`,
+            products.`long_discription`,
+            product_units.unit_name,
             products.`stock`,
             products.`price`,
             products.`discount`,
-            products.`product_image_url`,
-            brands.brand_name,
-            categories.category_name,
-            subcategories.subcategory_name,
-            product_units.unit_name
+            brands.name as brand_name,
+            categories.name as category_name,
+            subcategories.name as subcategory_name
         FROM
             products
             LEFT JOIN brands ON products.brand_id = brands.id

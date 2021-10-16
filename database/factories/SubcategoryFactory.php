@@ -23,9 +23,9 @@ class SubcategoryFactory extends Factory
     public function definition()
     {
         return [
-            'subcategory_name' => $this->faker->words(3,true),
-            'subcategory_discription' => $this->faker->paragraph(3,true),
-            'subcategory_image_url' => $this->faker->imageUrl(640, 480, 'cats', true, 'Faker', true),
+            'name' => $this->faker->words(3,true),
+            'discription' => $this->faker->paragraph(3,true),
+            'image' => $this->faker->imageUrl(640, 480, 'cats', true, 'Faker', true),
             'category_id' => function ()
             {
                 return Category::all()->random();
