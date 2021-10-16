@@ -25,7 +25,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $bear = Bear::create(['Name' => $request->input('name_of_bear')]);
+        // $bear->fishes()->create(['type_of_fish' => $fishType);
     }
 
     /**

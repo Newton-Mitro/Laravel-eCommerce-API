@@ -19,12 +19,10 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('created_by_id');
             $table->unsignedBigInteger('updated_by_id');
             $table->unsignedBigInteger('order_status_id');
-            $table->unsignedBigInteger('delivery_information_id');
             $table->timestamps();
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
             $table->foreign('created_by_id')->references('id')->on('users');
             $table->foreign('updated_by_id')->references('id')->on('users');
-            $table->foreign('delivery_information_id')->references('id')->on('delivery_information');
         });
     }
 
