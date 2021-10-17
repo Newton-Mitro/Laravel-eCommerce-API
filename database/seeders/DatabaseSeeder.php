@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
         Brand::factory(20)->create();
         Category::factory(3)->create();
         Subcategory::factory(50)->create();
@@ -28,8 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OrderStatusSeeder::class,
             ProductUnitSeeder::class,
+            RoleSeeder::class,
         ]);
-
+        User::factory(5)->create();
         Product::factory(100)->create();
         ProductReview::factory(300)->create();
     }

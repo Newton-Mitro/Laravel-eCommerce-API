@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response(Product::where('active', 0)
-        ->orderBy('product_name')
-        ->with(['brand:id,name','subcatagory','productUnit','productReviews','category'])
-        ->get());
+        //
     }
 
     /**
@@ -28,21 +25,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product($request->all());
-        if($product->save()){
-            return response(["success"],200);
-        }else{
-            return response(["faild"],400);
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Role $role)
     {
         //
     }
@@ -51,10 +43,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -62,10 +54,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Role $role)
     {
         //
     }
