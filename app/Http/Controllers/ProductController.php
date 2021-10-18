@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         return response(Product::where('active', 0)
         ->orderBy('product_name')
-        ->with(['brand:id,name','subcatagory','productUnit','productReviews','category'])
+        ->with(['brand','subcategory','productUnit','productReviews','category'])
         ->get());
     }
 
@@ -44,7 +44,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return response(Product::where('id',$product->id)
+        ->with(['brand','subcategory','productUnit','productReviews','category'])->first());
     }
 
     /**
