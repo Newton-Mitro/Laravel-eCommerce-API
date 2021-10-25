@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Repositories\Brand\BrandRepositoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class BrandController extends Controller
 {
@@ -14,6 +15,7 @@ class BrandController extends Controller
     {
         $this->brandRepo = $brandRepo;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +23,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return response()->json($this->brandRepo->all(), 200);
+        return response()->json($this->brandRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -33,7 +35,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         // return response()->json($request->all());
-        return response()->json($this->brandRepo->create($request->all()), 200);
+        return response()->json($this->brandRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -44,7 +46,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        return response()->json($this->brandRepo->findById($brand->id), 200);
+        return response()->json($this->brandRepo->findById($brand->id), Response::HTTP_OK);
     }
 
     /**
@@ -56,7 +58,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        return response()->json($this->brandRepo->update($brand->id,$request->all()), 200);
+        return response()->json($this->brandRepo->update($brand->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -67,6 +69,6 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        return response()->json($this->brandRepo->deleteById($brand->id), 200);
+        return response()->json($this->brandRepo->deleteById($brand->id), Response::HTTP_NO_CONTENT);
     }
 }

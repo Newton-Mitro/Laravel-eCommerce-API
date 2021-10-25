@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeliveryInformation;
 use Illuminate\Http\Request;
+use App\Models\DeliveryInformation;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\DeliveryInformation\DeliveryInformationRepositoryInterface;
 
 class DeliveryInformationController extends Controller
 {
+    private $deliveryInfoRepo;
+
+    public function __construct(DeliveryInformationRepositoryInterface $deliveryInfoRepo)
+    {
+        $this->deliveryInfoRepo = $deliveryInfoRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class DeliveryInformationController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->deliveryInfoRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class DeliveryInformationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->deliveryInfoRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class DeliveryInformationController extends Controller
      */
     public function show(DeliveryInformation $deliveryInformation)
     {
-        //
+        return response()->json($this->deliveryInfoRepo->findById($deliveryInformation->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class DeliveryInformationController extends Controller
      */
     public function update(Request $request, DeliveryInformation $deliveryInformation)
     {
-        //
+        return response()->json($this->deliveryInfoRepo->update($deliveryInformation->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class DeliveryInformationController extends Controller
      */
     public function destroy(DeliveryInformation $deliveryInformation)
     {
-        //
+        return response()->json($this->deliveryInfoRepo->deleteById($deliveryInformation->id), Response::HTTP_NO_CONTENT);
     }
 }

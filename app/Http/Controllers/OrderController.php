@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\Order\OrderRepositoryInterface;
 
 class OrderController extends Controller
 {
+    private $orderRepo;
+
+    public function __construct(OrderRepositoryInterface $orderRepo)
+    {
+        $this->orderRepo = $orderRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->orderRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,8 +34,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // $bear = Bear::create(['Name' => $request->input('name_of_bear')]);
-        // $bear->fishes()->create(['type_of_fish' => $fishType);
+        return response()->json($this->orderRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -37,7 +45,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return response()->json($this->orderRepo->findById($order->id), Response::HTTP_OK);
     }
 
     /**
@@ -49,7 +57,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        return response()->json($this->orderRepo->update($order->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -60,6 +68,6 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        return response()->json($this->orderRepo->deleteById($order->id), Response::HTTP_NO_CONTENT);
     }
 }

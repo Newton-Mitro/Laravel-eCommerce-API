@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductUnit;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\ProductUnit\ProductUnitRepositoryInterface;
 
 class ProductUnitController extends Controller
 {
+    private $productUnitRepo;
+
+    public function __construct(ProductUnitRepositoryInterface $productUnitRepo)
+    {
+        $this->productUnitRepo = $productUnitRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class ProductUnitController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->productUnitRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class ProductUnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->productUnitRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class ProductUnitController extends Controller
      */
     public function show(ProductUnit $productUnit)
     {
-        //
+        return response()->json($this->productUnitRepo->findById($productUnit->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class ProductUnitController extends Controller
      */
     public function update(Request $request, ProductUnit $productUnit)
     {
-        //
+        return response()->json($this->productUnitRepo->update($productUnit->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class ProductUnitController extends Controller
      */
     public function destroy(ProductUnit $productUnit)
     {
-        //
+        return response()->json($this->productUnitRepo->deleteById($productUnit->id), Response::HTTP_NO_CONTENT);
     }
 }

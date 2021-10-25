@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 
 class OrderItemController extends Controller
 {
+    private $orderItemRepo;
+
+    public function __construct(OrderItemRepositoryInterface $orderItemRepo)
+    {
+        $this->orderItemRepo = $orderItemRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->orderItemRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class OrderItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->orderItemRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class OrderItemController extends Controller
      */
     public function show(OrderItem $orderItem)
     {
-        //
+        return response()->json($this->orderItemRepo->findById($orderItem->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class OrderItemController extends Controller
      */
     public function update(Request $request, OrderItem $orderItem)
     {
-        //
+        return response()->json($this->orderItemRepo->update($request->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class OrderItemController extends Controller
      */
     public function destroy(OrderItem $orderItem)
     {
-        //
+        return response()->json($this->orderItemRepo->deleteById($orderItem->id), Response::HTTP_NO_CONTENT);
     }
 }

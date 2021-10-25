@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
+    private $categoryRepo;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepo)
+    {
+        $this->categoryRepo = $categoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->categoryRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->categoryRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return response()->json($this->categoryRepo->findById($category->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        return response()->json($this->categoryRepo->update($category->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        return response()->json($this->categoryRepo->deleteById($category->id), Response::HTTP_NO_CONTENT);
     }
 }

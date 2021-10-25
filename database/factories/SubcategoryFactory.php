@@ -23,7 +23,7 @@ class SubcategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->words(3,true),
+            'name' => $this->faker->words(2,true),
             'discription' => $this->faker->paragraph(3,true),
             'image' => $this->faker->imageUrl(640, 480, 'cats', true, 'Faker', true),
             'category_id' => function ()

@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\Role\RoleRepositoryInterface;
 
 class RoleController extends Controller
 {
+    private $roleRepo;
+
+    public function __construct(RoleRepositoryInterface $roleRepo)
+    {
+        $this->roleRepo = $roleRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->roleRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->roleRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        return response()->json($this->roleRepo->findById($role->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        return response()->json($this->roleRepo->update($role->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        return response()->json($this->roleRepo->deleteById($role->id), Response::HTTP_NO_CONTENT);
     }
 }

@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductReview;
 use Illuminate\Http\Request;
+use App\Models\ProductReview;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\ProductReview\ProductReviewRepositoryInterface;
 
 class ProductReviewController extends Controller
 {
+    private $productReviewRepo;
+
+    public function __construct(ProductReviewRepositoryInterface $productReviewRepo)
+    {
+        $this->productReviewRepo = $productReviewRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class ProductReviewController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->productReviewRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class ProductReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->productReviewRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class ProductReviewController extends Controller
      */
     public function show(ProductReview $productReview)
     {
-        //
+        return response()->json($this->productReviewRepo->findById($productReview->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class ProductReviewController extends Controller
      */
     public function update(Request $request, ProductReview $productReview)
     {
-        //
+        return response()->json($this->productReviewRepo->update($productReview->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class ProductReviewController extends Controller
      */
     public function destroy(ProductReview $productReview)
     {
-        //
+        return response()->json($this->productReviewRepo->deleteById($productReview->id), Response::HTTP_NO_CONTENT);
     }
 }

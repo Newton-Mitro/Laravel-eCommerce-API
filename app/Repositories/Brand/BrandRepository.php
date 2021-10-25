@@ -13,7 +13,7 @@ class BrandRepository implements BrandRepositoryInterface
     protected $model;
 
     /**
-     * BaseRepository constructor.
+     * BrandRepository constructor.
      *
      * @param Model $model
      */

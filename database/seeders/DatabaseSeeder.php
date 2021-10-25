@@ -2,12 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Brand;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Subcategory;
-use App\Models\ProductReview;
 use Illuminate\Database\Seeder;
 use Database\Seeders\OrderStatusSeeder;
 
@@ -20,17 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Brand::factory(20)->create();
-        Category::factory(3)->create();
-        Subcategory::factory(50)->create();
-
         $this->call([
+            BrandSeeder::class,
+            CategorySeeder::class,
+            SubcategorySeeder::class,
             OrderStatusSeeder::class,
             ProductUnitSeeder::class,
             RoleSeeder::class,
+            UserSeeder::class,
+            ProductSeeder::class,
+            ProductReviewSeeder::class,
         ]);
-        User::factory(5)->create();
-        Product::factory(100)->create();
-        ProductReview::factory(300)->create();
     }
 }

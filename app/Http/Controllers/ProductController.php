@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\Product\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
+    private $productRepo;
+
+    public function __construct(ProductRepositoryInterface $productRepo)
+    {
+        $this->productRepo = $productRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,10 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response(Product::where('active', 0)
-        ->orderBy('product_name')
-        ->with(['brand','subcategory','productUnit','productReviews','category'])
-        ->get());
+        return response()->json($this->productRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -28,12 +34,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product($request->all());
-        if($product->save()){
-            return response(["success"],200);
-        }else{
-            return response(["faild"],400);
-        }
+        return response()->json($this->productRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -44,8 +45,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response(Product::where('id',$product->id)
-        ->with(['brand','subcategory','productUnit','productReviews','category'])->first());
+        return response()->json($this->productRepo->findById($product->id), Response::HTTP_OK);
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        return response()->json($this->productRepo->update($product->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -68,6 +68,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        return response()->json($this->productRepo->deleteById($product->id), Response::HTTP_NO_CONTENT);
     }
 }

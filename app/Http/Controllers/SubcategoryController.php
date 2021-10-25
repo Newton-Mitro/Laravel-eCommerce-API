@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Repositories\Subcategory\SubcategoryRepositoryInterface;
 
 class SubcategoryController extends Controller
 {
+    private $subcategoryRepo;
+
+    public function __construct(SubcategoryRepositoryInterface $subcategoryRepo)
+    {
+        $this->subcategoryRepo = $subcategoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->subcategoryRepo->all(), Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +34,7 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json($this->subcategoryRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -36,7 +45,7 @@ class SubcategoryController extends Controller
      */
     public function show(Subcategory $subcategory)
     {
-        //
+        return response()->json($this->subcategoryRepo->findById($subcategory->id), Response::HTTP_OK);
     }
 
     /**
@@ -48,7 +57,7 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, Subcategory $subcategory)
     {
-        //
+        return response()->json($this->subcategoryRepo->update($subcategory->id,$request->all()), Response::HTTP_OK);
     }
 
     /**
@@ -59,6 +68,6 @@ class SubcategoryController extends Controller
      */
     public function destroy(Subcategory $subcategory)
     {
-        //
+        return response()->json($this->subcategoryRepo->deleteById($subcategory->id), Response::HTTP_NO_CONTENT);
     }
 }

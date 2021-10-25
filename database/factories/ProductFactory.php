@@ -27,8 +27,8 @@ class ProductFactory extends Factory
     {
         return [
             'product_code' => $this->faker->numerify('##########'),
-            'product_name' => $this->faker->words(3,true),
-            'short_discription' => $this->faker->paragraph(3,true),
+            'product_name' => $this->faker->words(2,true),
+            'short_discription' => $this->faker->paragraph(1,true),
             'long_discription' => $this->faker->paragraph(3,true),
             'stock' => $this->faker->numberBetween(1,10),
             'price' => $this->faker->numberBetween(50,1000),
