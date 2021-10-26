@@ -15,7 +15,8 @@ class GetProductTest extends TestCase
      */
     public function test_get_products_route()
     {
-        $response = $this->getJson(route('products.index'));
+        $response = $this->get('/products/a');
+        // $response = $this->getJson(route('product.search'));
         $response->assertStatus(200);
     }
 

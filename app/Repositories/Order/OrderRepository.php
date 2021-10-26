@@ -28,7 +28,7 @@ class OrderRepository implements OrderRepositoryInterface
      * @return Collection
      */
     public function all(){
-        return $this->model->all();
+        return $this->model->with(['orderItems','orderStatus','createdByUser','updatedByUser'])->get();
     }
 
     /**
@@ -38,7 +38,7 @@ class OrderRepository implements OrderRepositoryInterface
      * @return Model
      */
     public function findById(int $id){
-        return $this->model->find($id);
+        return $this->model->where('id',$id)->with(['orderItems','orderStatus','createdByUser','updatedByUser'])->first();
     }
 
     /**
@@ -48,8 +48,15 @@ class OrderRepository implements OrderRepositoryInterface
      * @return Model
      */
     public function create(array $payload){
-        return $this->model->create($payload);
-        // return $payload;
+        $this->model = $this->model->create($payload);
+        $orderId = $this->model->id;
+        $orderItems = $payload['orderItems'];
+        $deliveryInformation = $payload['deliveryInformation'];
+        $this->model->deliveryInformation()->create($deliveryInformation);
+        foreach($orderItems as $orderItem){
+            $this->model->orderItems()->create($orderItem);
+        }
+        return  Order::where('id',$orderId)->with(['orderItems','deliveryInformation'])->first();
     }
 
     /**

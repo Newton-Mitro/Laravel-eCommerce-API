@@ -19,10 +19,10 @@ class CreateOrderItemsTable extends Migration
             $table->string('product_name');
             $table->string('brand')->nullable();
             $table->integer('qty');
+            $table->string('product_unit');
             $table->decimal('unit_price');
             $table->timestamps();
             $table->foreignId('order_id')->constrained();
-            $table->foreignId('product_unit_id')->constrained();
         });
     }
 

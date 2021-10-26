@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Order extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['total_price','created_by_id','updated_by_id','order_status_id'];
     public function deliveryInformation()
     {
         return $this->hasOne(DeliveryInformation::class);
@@ -28,8 +28,13 @@ class Order extends Model
         return $this->belongsTo(OrderStatus::class);
     }
 
-    public function user()
+    public function createdByUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    public function updatedByUser()
+    {
+        return $this->belongsTo(User::class, 'updated_by_id');
     }
 }

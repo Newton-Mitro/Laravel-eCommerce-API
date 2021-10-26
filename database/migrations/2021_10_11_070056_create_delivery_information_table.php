@@ -24,7 +24,7 @@ class CreateDeliveryInformationTable extends Migration
             $table->string('post_code')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

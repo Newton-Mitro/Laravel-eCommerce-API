@@ -28,6 +28,7 @@ Route::group(['prefix' => 'auth','namespace' => 'App\Http\Controllers',], functi
 });
 
 Route::apiResource('products', ProductController::class);
+Route::get('products/search/{name}', [ProductController::class, 'search'])->name('product.search');
 Route::apiResource('brands', BrandController::class);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('sub-categories', SubcategoryController::class);

@@ -48,6 +48,11 @@ class ProductController extends Controller
         return response()->json($this->productRepo->findById($product->id), Response::HTTP_OK);
     }
 
+    public function search(string $name)
+    {
+        return response()->json($this->productRepo->searchByProductName($name), Response::HTTP_OK);
+    }
+
     /**
      * Update the specified resource in storage.
      *

@@ -19,8 +19,7 @@ class CreateProductsView extends Migration
         SELECT
             products.`product_code`,
             products.`product_name`,
-            products.`short_discription`,
-            products.`long_discription`,
+            products.`discription`,
             product_units.unit_name,
             products.`stock`,
             products.`price`,

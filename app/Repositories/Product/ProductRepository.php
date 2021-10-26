@@ -46,6 +46,17 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Find product by its name
+     *
+     * @param string $productName
+     * @return Collection
+     */
+    public function searchByProductName(string $productName){
+        return $this->model->where('product_name','like','%' .$productName. '%')
+        ->with(['brand','subcategory','productUnit','productReviews','category'])->get();
+    }
+
+    /**
      * Create a model.
      *
      * @param array $payload

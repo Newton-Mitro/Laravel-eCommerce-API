@@ -17,8 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('product_name');
             $table->string('product_code')->unique();
-            $table->text('short_discription')->nullable();
-            $table->text('long_discription')->nullable();
+            $table->text('discription')->nullable();
             $table->integer('stock')->default(0);
             $table->decimal('price')->default(0);
             $table->decimal('discount')->default(0);
@@ -29,10 +28,10 @@ class CreateProductsTable extends Migration
             // $table->unsignedBigInteger('product_unit_id');
             // $table->unsignedBigInteger('subcategory_id');
             // $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreignId('category_id')->constrained();
-            $table->foreignId('subcategory_id')->constrained();
-            $table->foreignId('brand_id')->constrained();
-            $table->foreignId('product_unit_id')->constrained();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('subcategory_id')->constrained()->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_unit_id')->constrained()->onDelete('cascade');
         });
     }
 
