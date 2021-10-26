@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +52,11 @@ class ProductController extends Controller
     public function search(string $name)
     {
         return response()->json($this->productRepo->searchByProductName($name), Response::HTTP_OK);
+    }
+
+    public function productsByBrand(Brand $brand)
+    {
+        return response()->json($this->productRepo->productsByBrand($brand->id), Response::HTTP_OK);
     }
 
     /**

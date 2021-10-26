@@ -56,6 +56,11 @@ class ProductRepository implements ProductRepositoryInterface
         ->with(['brand','subcategory','productUnit','productReviews','category'])->get();
     }
 
+    public function productsByBrand(int $id){
+        return $this->model->where('brand_id',$id)
+        ->with(['brand','subcategory','productUnit','productReviews','category'])->get();
+    }
+
     /**
      * Create a model.
      *
