@@ -13,6 +13,7 @@ class OrderController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepo)
     {
+        $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
         $this->orderRepo = $orderRepo;
     }
 
