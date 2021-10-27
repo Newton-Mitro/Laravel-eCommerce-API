@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\Order\OrderRepositoryInterface;
 
@@ -13,7 +13,7 @@ class OrderController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepo)
     {
-        // $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
+        $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
         $this->orderRepo = $orderRepo;
     }
 
@@ -38,9 +38,8 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        // return $this->orderRepo->create($request->all());
         return response()->json($this->orderRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
@@ -62,7 +61,7 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(OrderRequest $request, Order $order)
     {
         return response()->json($this->orderRepo->update($order->id, $request->all()), Response::HTTP_OK);
     }

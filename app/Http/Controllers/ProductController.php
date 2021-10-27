@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Brand;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\Product\ProductRepositoryInterface;
 
@@ -25,6 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         return response()->json($this->productRepo->all(), Response::HTTP_OK);
     }
 
@@ -34,7 +36,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         return response()->json($this->productRepo->create($request->all()), Response::HTTP_CREATED);
     }
@@ -47,7 +49,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json($this->productRepo->findById($product->id), Response::HTTP_OK);
+        return new ProductResource($product);
+        // return response(new ProductResource($product), Response::HTTP_OK);
     }
 
     public function search(string $name)
@@ -67,7 +70,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         return response()->json($this->productRepo->update($product->id, $request->all()), Response::HTTP_OK);
     }

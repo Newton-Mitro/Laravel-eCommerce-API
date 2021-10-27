@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UserRegistrationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,18 +27,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(),  Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        if (!$token = auth()->attempt($validator->validated())) {
+        if (!$token = auth()->attempt($request->all())) {
             return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -48,26 +41,16 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request)
+    public function register(UserRegistrationRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), Response::HTTP_BAD_REQUEST);
-        }
-
         $user = User::create(array_merge(
-            $validator->validated(),
+            $request->all(),
             ['password' => bcrypt($request->password)]
         ));
 
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => User::where('id', $user->id)->with('role:id,name')->first()
         ], Response::HTTP_CREATED);
     }
 
@@ -79,7 +62,6 @@ class AuthController extends Controller
     public function logout()
     {
         $this->guard()->logout();
-
         return response()->json(['message' => 'User successfully logged out']);
     }
 

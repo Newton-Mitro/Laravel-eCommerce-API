@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Products;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DestroyProductTest extends TestCase
 {
@@ -27,7 +28,7 @@ class DestroyProductTest extends TestCase
      */
     public function test_destroy_product()
     {
-        $response = $this->get('http://127.0.0.1:8000/api/products');
-        $response->assertStatus(200);
+        $response = $this->delete('http://127.0.0.1:8000/api/products/2');
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
     }
 }
