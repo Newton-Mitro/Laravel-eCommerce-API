@@ -37,18 +37,18 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(BrandRepositoryInterface::class,BrandRepository::class);
-        $this->app->bind(CategoryRepositoryInterface::class,CategoryRepository::class);
-        $this->app->bind(SubcategoryRepositoryInterface::class,SubcategoryRepository::class);
-        $this->app->bind(ProductUnitRepositoryInterface::class,ProductUnitRepository::class);
-        $this->app->bind(ProductReviewRepositoryInterface::class,ProductReviewRepository::class);
-        $this->app->bind(ProductRepositoryInterface::class,ProductRepository::class);
-        $this->app->bind(OrderStatusRepositoryInterface::class,OrderStatusRepository::class);
-        $this->app->bind(OrderRepositoryInterface::class,OrderRepository::class);
-        $this->app->bind(OrderItemRepositoryInterface::class,OrderItemRepository::class);
-        $this->app->bind(DeliveryInformationRepositoryInterface::class,DeliveryInformationRepository::class);
-        $this->app->bind(RoleRepositoryInterface::class,RoleRepository::class);
-        $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
+        $this->app->bind(BrandRepositoryInterface::class, BrandRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(SubcategoryRepositoryInterface::class, SubcategoryRepository::class);
+        $this->app->bind(ProductUnitRepositoryInterface::class, ProductUnitRepository::class);
+        $this->app->bind(ProductReviewRepositoryInterface::class, ProductReviewRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(OrderStatusRepositoryInterface::class, OrderStatusRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
+        $this->app->bind(DeliveryInformationRepositoryInterface::class, DeliveryInformationRepository::class);
+        $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
@@ -58,6 +58,5 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
     }
 }

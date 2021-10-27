@@ -57,7 +57,7 @@ class OrderStatusController extends Controller
      */
     public function update(Request $request, OrderStatus $orderStatus)
     {
-        return response()->json($this->orderStatusRepo->update($orderStatus->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->orderStatusRepo->update($orderStatus->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

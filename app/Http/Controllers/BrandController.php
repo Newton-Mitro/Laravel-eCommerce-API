@@ -58,7 +58,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        return response()->json($this->brandRepo->update($brand->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->brandRepo->update($brand->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

@@ -14,8 +14,8 @@ class OrderStatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = ['Pending','Approved','Rejected','Processing','Shipped','Delivered'];
-        foreach ($statuses as $status){
+        $statuses = ['Pending', 'Approved', 'Rejected', 'Processing', 'Shipped', 'Delivered'];
+        foreach ($statuses as $status) {
             DB::table('order_statuses')->insert([
                 'status_name' => $status
             ]);

@@ -57,7 +57,7 @@ class DeliveryInformationController extends Controller
      */
     public function update(Request $request, DeliveryInformation $deliveryInformation)
     {
-        return response()->json($this->deliveryInfoRepo->update($deliveryInformation->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->deliveryInfoRepo->update($deliveryInformation->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

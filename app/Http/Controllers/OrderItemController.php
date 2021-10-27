@@ -57,7 +57,7 @@ class OrderItemController extends Controller
      */
     public function update(Request $request, OrderItem $orderItem)
     {
-        return response()->json($this->orderItemRepo->update($request->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->orderItemRepo->update($request->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

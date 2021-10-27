@@ -57,7 +57,7 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, Subcategory $subcategory)
     {
-        return response()->json($this->subcategoryRepo->update($subcategory->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->subcategoryRepo->update($subcategory->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

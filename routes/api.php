@@ -21,7 +21,7 @@ use App\Http\Controllers\ProductReviewController;
 |
 */
 
-Route::group(['prefix' => 'auth','namespace' => 'App\Http\Controllers',], function () {
+Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers',], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
@@ -32,10 +32,13 @@ Route::group(['prefix' => 'auth','namespace' => 'App\Http\Controllers',], functi
 Route::apiResource('products', ProductController::class);
 Route::get('products/search/{name}', [ProductController::class, 'search'])->name('product.search');
 Route::get('{brand}/products', [ProductController::class, 'productsByBrand'])->name('product.byBrand');
-Route::apiResource('brands', BrandController::class);
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('sub-categories', SubcategoryController::class);
+
 Route::apiResource('orders', OrderController::class);
+Route::get('{user}/orders', [OrderController::class, 'getOrdersByUserId'])->name('order.users');
+
 Route::apiResource('order-statuses', OrderStatusController::class);
 Route::apiResource('order-items', OrderStatusController::class);
 Route::apiResource('product-reviews', ProductReviewController::class);
+Route::apiResource('brands', BrandController::class);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('sub-categories', SubcategoryController::class);

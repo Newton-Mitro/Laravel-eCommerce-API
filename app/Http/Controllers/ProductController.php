@@ -14,7 +14,7 @@ class ProductController extends Controller
 
     public function __construct(ProductRepositoryInterface $productRepo)
     {
-        $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'search', 'productsByBrand']]);
         $this->productRepo = $productRepo;
     }
 
@@ -69,7 +69,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        return response()->json($this->productRepo->update($product->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->productRepo->update($product->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

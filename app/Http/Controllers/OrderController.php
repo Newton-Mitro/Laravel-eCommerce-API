@@ -13,7 +13,7 @@ class OrderController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepo)
     {
-        $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
+        // $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
         $this->orderRepo = $orderRepo;
     }
 
@@ -25,6 +25,11 @@ class OrderController extends Controller
     public function index()
     {
         return response()->json($this->orderRepo->all(), Response::HTTP_OK);
+    }
+
+    public function getOrdersByUserId(int $id)
+    {
+        return response()->json($this->orderRepo->getOrdersByUserId($id), Response::HTTP_OK);
     }
 
     /**
@@ -59,7 +64,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        return response()->json($this->orderRepo->update($order->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->orderRepo->update($order->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

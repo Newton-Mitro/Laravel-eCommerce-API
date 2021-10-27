@@ -27,7 +27,8 @@ class RoleRepository implements RoleRepositoryInterface
      *
      * @return Collection
      */
-    public function all(){
+    public function all()
+    {
         return $this->model->all();
     }
 
@@ -37,7 +38,8 @@ class RoleRepository implements RoleRepositoryInterface
      * @param int $modelId
      * @return Model
      */
-    public function findById(int $id){
+    public function findById(int $id)
+    {
         return $this->model->find($id);
     }
 
@@ -47,7 +49,8 @@ class RoleRepository implements RoleRepositoryInterface
      * @param array $payload
      * @return Model
      */
-    public function create(array $payload){
+    public function create(array $payload)
+    {
         return $this->model->create($payload);
         // return $payload;
     }
@@ -59,7 +62,8 @@ class RoleRepository implements RoleRepositoryInterface
      * @param array $payload
      * @return bool
      */
-    public function update(int $id, array $payload){
+    public function update(int $id, array $payload)
+    {
         $role = $this->model->find($id);
         return  $role->update($payload);
     }
@@ -70,8 +74,9 @@ class RoleRepository implements RoleRepositoryInterface
      * @param int $modelId
      * @return bool
      */
-    public function deleteById(int $id){
-       $role = $this->model->find($id);
+    public function deleteById(int $id)
+    {
+        $role = $this->model->find($id);
         return $role->delete();
     }
 }

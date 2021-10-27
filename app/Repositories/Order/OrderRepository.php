@@ -3,6 +3,7 @@
 namespace App\Repositories\Order;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Order\OrderRepositoryInterface;
 
 class OrderRepository implements OrderRepositoryInterface
@@ -23,12 +24,24 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
+     * Get user orders
+     *
+     * @param integer $id
+     * @return Collection
+     */
+    public function getOrdersByUserId(int $id)
+    {
+        return $this->model->where('created_by', $id)->with(['orderItems', 'orderStatus', 'createdByUser', 'updatedByUser'])->get();
+    }
+
+    /**
      * Get all models.
      *
      * @return Collection
      */
-    public function all(){
-        return $this->model->with(['orderItems','orderStatus','createdByUser','updatedByUser'])->get();
+    public function all()
+    {
+        return $this->model->with(['orderItems', 'orderStatus', 'createdByUser', 'updatedByUser'])->get();
     }
 
     /**
@@ -37,8 +50,9 @@ class OrderRepository implements OrderRepositoryInterface
      * @param int $modelId
      * @return Model
      */
-    public function findById(int $id){
-        return $this->model->where('id',$id)->with(['orderItems','orderStatus','createdByUser','updatedByUser'])->first();
+    public function findById(int $id)
+    {
+        return $this->model->where('id', $id)->with(['orderItems', 'orderStatus', 'createdByUser', 'updatedByUser'])->first();
     }
 
     /**
@@ -47,16 +61,14 @@ class OrderRepository implements OrderRepositoryInterface
      * @param array $payload
      * @return Model
      */
-    public function create(array $payload){
+    public function create(array $payload)
+    {
         $this->model = $this->model->create($payload);
-        $orderId = $this->model->id;
-        $orderItems = $payload['orderItems'];
-        $deliveryInformation = $payload['deliveryInformation'];
-        $this->model->deliveryInformation()->create($deliveryInformation);
-        foreach($orderItems as $orderItem){
+        $this->model->deliveryInformation()->create($payload['delivery_information']);
+        foreach ($payload['order_items'] as $orderItem) {
             $this->model->orderItems()->create($orderItem);
         }
-        return  Order::where('id',$orderId)->with(['orderItems','deliveryInformation'])->first();
+        return  $this->model->where('id', $this->model->id)->with(['orderItems', 'deliveryInformation'])->first();
     }
 
     /**
@@ -66,9 +78,15 @@ class OrderRepository implements OrderRepositoryInterface
      * @param array $payload
      * @return bool
      */
-    public function update(int $id, array $payload){
+    public function update(int $id, array $payload)
+    {
         $order = $this->model->find($id);
-        return  $order->update($payload);
+        $order->deliveryInformation()->update($payload['delivery_information']);
+        $order->orderItems()->delete();
+        foreach ($payload['order_items'] as $orderItem) {
+            $order->orderItems()->create($orderItem);
+        }
+        return  $this->model->where('id', $order->id)->with(['orderItems', 'deliveryInformation'])->first();
     }
 
     /**
@@ -77,8 +95,9 @@ class OrderRepository implements OrderRepositoryInterface
      * @param int $modelId
      * @return bool
      */
-    public function deleteById(int $id){
-       $order = $this->model->find($id);
+    public function deleteById(int $id)
+    {
+        $order = $this->model->find($id);
         return $order->delete();
     }
 }

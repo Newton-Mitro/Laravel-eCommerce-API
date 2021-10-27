@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 use App\Models\Order;
 use App\Models\ProductReview;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -75,5 +77,10 @@ class User extends Authenticatable implements JWTSubject
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

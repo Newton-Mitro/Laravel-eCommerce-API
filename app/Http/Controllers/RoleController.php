@@ -57,7 +57,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        return response()->json($this->roleRepo->update($role->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->roleRepo->update($role->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

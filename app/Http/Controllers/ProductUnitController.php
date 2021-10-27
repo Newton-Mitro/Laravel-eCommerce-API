@@ -57,7 +57,7 @@ class ProductUnitController extends Controller
      */
     public function update(Request $request, ProductUnit $productUnit)
     {
-        return response()->json($this->productUnitRepo->update($productUnit->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->productUnitRepo->update($productUnit->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

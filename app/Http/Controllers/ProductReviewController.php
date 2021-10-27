@@ -57,7 +57,7 @@ class ProductReviewController extends Controller
      */
     public function update(Request $request, ProductReview $productReview)
     {
-        return response()->json($this->productReviewRepo->update($productReview->id,$request->all()), Response::HTTP_OK);
+        return response()->json($this->productReviewRepo->update($productReview->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

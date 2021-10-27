@@ -16,13 +16,13 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_price');
-            $table->unsignedBigInteger('created_by_id');
-            $table->unsignedBigInteger('updated_by_id');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->unsignedBigInteger('order_status_id');
             $table->timestamps();
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
-            $table->foreign('created_by_id')->references('id')->on('users');
-            $table->foreign('updated_by_id')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 

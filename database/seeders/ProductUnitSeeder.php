@@ -14,8 +14,8 @@ class ProductUnitSeeder extends Seeder
      */
     public function run()
     {
-        $product_units = ['Litter','Pack','KG','gm','Box','Bottle'];
-        foreach ($product_units as $unit){
+        $product_units = ['Litter', 'Pack', 'KG', 'gm', 'Box', 'Bottle'];
+        foreach ($product_units as $unit) {
             DB::table('product_units')->insert([
                 'unit_name' => $unit
             ]);
