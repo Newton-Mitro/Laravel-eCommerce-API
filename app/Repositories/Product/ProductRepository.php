@@ -30,9 +30,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function all()
     {
         return $this->model::where('active', 0)
-            ->orderBy('product_name')
-            ->with(['brand:id,name', 'productUnit:id,unit_name'])
-            ->get();
+            ->paginate(2);
     }
 
     /**

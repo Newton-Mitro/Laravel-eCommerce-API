@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Http\Requests\OrderRequest;
+use App\Http\Resources\Order\OrderResource;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\Order\OrderRepositoryInterface;
 
@@ -24,12 +25,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json($this->orderRepo->all(), Response::HTTP_OK);
+        return response()->json(OrderResource::collection($this->orderRepo->all()), Response::HTTP_OK);
     }
 
     public function getOrdersByUserId(int $id)
     {
-        return response()->json($this->orderRepo->getOrdersByUserId($id), Response::HTTP_OK);
+        return response()->json(OrderResource::collection($this->orderRepo->getOrdersByUserId($id)), Response::HTTP_OK);
     }
 
     /**
@@ -51,7 +52,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return response()->json($this->orderRepo->findById($order->id), Response::HTTP_OK);
+        return response()->json(new OrderResource($this->orderRepo->findById($order->id)), Response::HTTP_OK);
     }
 
     /**

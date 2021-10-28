@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Review\ReviewResource;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductReview;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +23,9 @@ class ProductReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        return response()->json($this->productReviewRepo->all(), Response::HTTP_OK);
+        return response()->json(ReviewResource::collection($product->productReviews), Response::HTTP_OK);
     }
 
     /**

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductResource;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\Product\ProductResource;
 use App\Repositories\Product\ProductRepositoryInterface;
 
 class ProductController extends Controller
@@ -26,8 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-        return response()->json($this->productRepo->all(), Response::HTTP_OK);
+        return ProductResource::collection($this->productRepo->all());
     }
 
     /**
@@ -49,18 +48,29 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return new ProductResource($product);
-        // return response(new ProductResource($product), Response::HTTP_OK);
+        return response(new ProductResource($this->productRepo->findById($product->id)), Response::HTTP_OK);
     }
 
+    /**
+     * Search product by it's name
+     *
+     * @param string $name
+     * @return Collection
+     */
     public function search(string $name)
     {
-        return response()->json($this->productRepo->searchByProductName($name), Response::HTTP_OK);
+        return response()->json(ProductResource::collection($this->productRepo->searchByProductName($name)), Response::HTTP_OK);
     }
 
+    /**
+     * Show products from specific brand
+     *
+     * @param Brand $brand
+     * @return Collection
+     */
     public function productsByBrand(Brand $brand)
     {
-        return response()->json($this->productRepo->productsByBrand($brand->id), Response::HTTP_OK);
+        return response()->json(ProductResource::collection($this->productRepo->productsByBrand($brand->id)), Response::HTTP_OK);
     }
 
     /**

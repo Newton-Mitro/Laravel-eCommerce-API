@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Order extends Model
 {
     use HasFactory;
+
     protected $fillable = ['total_price', 'created_by', 'updated_by', 'order_status_id'];
+
     public function deliveryInformation()
     {
         return $this->hasOne(DeliveryInformation::class);

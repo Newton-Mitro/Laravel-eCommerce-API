@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\UserRegistrationRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\User\UserResource;
+use App\Http\Requests\UserRegistrationRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -50,7 +49,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => User::where('id', $user->id)->with('role:id,name')->first()
+            'user' => new UserResource(User::where('id', $user->id)->with('role:id,name')->first())
         ], Response::HTTP_CREATED);
     }
 
@@ -82,7 +81,7 @@ class AuthController extends Controller
      */
     public function userProfile()
     {
-        return response()->json(auth()->user());
+        return response()->json(new UserResource(auth()->user()));
     }
 
 
@@ -99,7 +98,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'user' => new UserResource(auth()->user())
         ]);
     }
     /**

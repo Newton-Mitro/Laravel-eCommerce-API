@@ -52,7 +52,7 @@ class OrderRepository implements OrderRepositoryInterface
      */
     public function findById(int $id)
     {
-        return $this->model->where('id', $id)->with(['orderItems', 'orderStatus', 'createdByUser', 'updatedByUser'])->first();
+        return $this->model->find($id);
     }
 
     /**
