@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderReceivedEvent;
 use App\Models\Order;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\Order\OrderResource;
@@ -14,12 +15,12 @@ class OrderController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepo)
     {
-        $this->middleware('auth:api', ['except' => ['index','show','search','productsByBrand']]);
+        $this->middleware('auth:api', ['except' => ['store']]);
         $this->orderRepo = $orderRepo;
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the orders.
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,24 +29,31 @@ class OrderController extends Controller
         return response()->json(OrderResource::collection($this->orderRepo->all()), Response::HTTP_OK);
     }
 
+    /**
+     * Get order by user id
+     *
+     * @param integer $id
+     * @return void
+     */
     public function getOrdersByUserId(int $id)
     {
         return response()->json(OrderResource::collection($this->orderRepo->getOrdersByUserId($id)), Response::HTTP_OK);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created order in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(OrderRequest $request)
     {
-        return response()->json($this->orderRepo->create($request->all()), Response::HTTP_CREATED);
+        return response()->json(new OrderResource($this->orderRepo->create($request->all())), Response::HTTP_CREATED);
+
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified order.
      *
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
@@ -56,7 +64,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified order in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Order  $order
@@ -68,7 +76,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified order from storage.
      *
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response

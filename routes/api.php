@@ -39,7 +39,7 @@ Route::group(['prefix' => 'products'], function () {
 });
 
 Route::apiResource('orders', OrderController::class);
-Route::get('{user}/orders', [OrderController::class, 'getOrdersByUserId'])->name('order.users');
+Route::get('orders/{user}/users', [OrderController::class, 'getOrdersByUserId'])->name('order.users');
 Route::group(['prefix' => 'orders'], function () {
     Route::apiResource('{order}/items', OrderItemController::class);
 });

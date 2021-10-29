@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Order;
 
+use App\Events\OrderReceivedEvent;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Order\OrderRepositoryInterface;
@@ -31,7 +32,7 @@ class OrderRepository implements OrderRepositoryInterface
      */
     public function getOrdersByUserId(int $id)
     {
-        return $this->model->where('created_by', $id)->with(['orderItems', 'orderStatus', 'createdByUser', 'updatedByUser'])->get();
+        return $this->model->where('created_by', $id)->get();
     }
 
     /**
@@ -41,7 +42,7 @@ class OrderRepository implements OrderRepositoryInterface
      */
     public function all()
     {
-        return $this->model->with(['orderItems', 'orderStatus', 'createdByUser', 'updatedByUser'])->get();
+        return $this->model->all();
     }
 
     /**
@@ -68,6 +69,7 @@ class OrderRepository implements OrderRepositoryInterface
         foreach ($payload['order_items'] as $orderItem) {
             $this->model->orderItems()->create($orderItem);
         }
+        event(OrderReceivedEvent::class);
         return  $this->model->where('id', $this->model->id)->with(['orderItems', 'deliveryInformation'])->first();
     }
 
@@ -81,13 +83,18 @@ class OrderRepository implements OrderRepositoryInterface
     public function update(int $id, array $payload)
     {
         $order = $this->model->find($id);
-        $order->deliveryInformation()->update($payload['delivery_information']);
-        $order->orderItems()->delete();
-        foreach ($payload['order_items'] as $orderItem) {
-            $order->orderItems()->create($orderItem);
+        if ($order->order_status_id < 2 || auth()->user()->role_id==1) {
+            $order->deliveryInformation()->update($payload['delivery_information']);
+            $order->orderItems()->delete();
+            foreach ($payload['order_items'] as $orderItem) {
+                $order->orderItems()->create($orderItem);
+            }
+            return true;
+        }else{
+            return false;
         }
-        return  $this->model->where('id', $order->id)->with(['orderItems', 'deliveryInformation'])->first();
     }
+
 
     /**
      * Delete model by id.

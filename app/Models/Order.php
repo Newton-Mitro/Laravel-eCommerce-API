@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\OrderReceivedEvent;
 use App\Models\User;
 use App\Models\OrderItem;
 use App\Models\OrderStatus;
@@ -13,7 +14,8 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['total_price', 'created_by', 'updated_by', 'order_status_id'];
+    // protected $fillable = ['total_price', 'created_by', 'updated_by', 'order_status_id'];
+    protected $guarded = [];
 
     public function deliveryInformation()
     {

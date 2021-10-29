@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Product\ProductResource;
 use App\Repositories\Product\ProductRepositoryInterface;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -15,7 +17,7 @@ class ProductController extends Controller
 
     public function __construct(ProductRepositoryInterface $productRepo)
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'search', 'productsByBrand']]);
+        // $this->middleware('auth:api', ['except' => ['index', 'show', 'search', 'productsByBrand']]);
         $this->productRepo = $productRepo;
     }
 
@@ -37,7 +39,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        return response()->json($this->productRepo->create($request->all()), Response::HTTP_CREATED);
+        return response()->json(new ProductResource($this->productRepo->create($request->all())), Response::HTTP_CREATED);
     }
 
     /**
@@ -80,7 +82,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         return response()->json($this->productRepo->update($product->id, $request->all()), Response::HTTP_OK);
     }

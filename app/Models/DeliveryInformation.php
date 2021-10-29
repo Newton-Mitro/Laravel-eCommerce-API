@@ -10,7 +10,8 @@ class DeliveryInformation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_name', 'mobile_number', 'email', 'address', 'city', 'post_code', 'country'];
+    // protected $fillable = ['customer_name', 'mobile_number', 'email', 'address', 'city', 'post_code', 'country'];
+    protected $guarded = [];
 
     public function order()
     {
