@@ -48,7 +48,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        return response()->json(new OrderResource($this->orderRepo->create($request->all())), Response::HTTP_CREATED);
+        return new OrderResource($this->orderRepo->create($request->all()));
 
     }
 

@@ -4,7 +4,8 @@ namespace App\Repositories\Order;
 
 use App\Events\OrderReceivedEvent;
 use App\Models\Order;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Notifications\OrderReceivedNotification;
 use App\Repositories\Order\OrderRepositoryInterface;
 
 class OrderRepository implements OrderRepositoryInterface
@@ -64,12 +65,15 @@ class OrderRepository implements OrderRepositoryInterface
      */
     public function create(array $payload)
     {
+        // dd($payload['delivery_information']);
         $this->model = $this->model->create($payload);
         $this->model->deliveryInformation()->create($payload['delivery_information']);
         foreach ($payload['order_items'] as $orderItem) {
             $this->model->orderItems()->create($orderItem);
         }
-        event(OrderReceivedEvent::class);
+
+        User::find(1)->notify(new OrderReceivedNotification);
+        // event(OrderReceivedEvent::class);
         return  $this->model->where('id', $this->model->id)->with(['orderItems', 'deliveryInformation'])->first();
     }
 
@@ -83,14 +87,14 @@ class OrderRepository implements OrderRepositoryInterface
     public function update(int $id, array $payload)
     {
         $order = $this->model->find($id);
-        if ($order->order_status_id < 2 || auth()->user()->role_id==1) {
+        if ($order->order_status_id < 2 || auth()->user()->role_id == 1) {
             $order->deliveryInformation()->update($payload['delivery_information']);
             $order->orderItems()->delete();
             foreach ($payload['order_items'] as $orderItem) {
                 $order->orderItems()->create($orderItem);
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }

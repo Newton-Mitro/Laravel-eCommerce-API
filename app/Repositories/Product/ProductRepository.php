@@ -29,8 +29,8 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function all()
     {
-        return $this->model::where('active', 0)
-            ->paginate(2);
+        return $this->model::where('active', 1)
+            ->paginate(20);
     }
 
     /**
@@ -53,8 +53,8 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function searchByProductName(string $productName)
     {
-        return $this->model->where('product_name', 'like', '%' . $productName . '%')
-            ->with(['brand:id,name', 'productUnit:id,unit_name'])->get();
+        return $this->model->where('active', 1)->where('product_name', 'like', '%' . $productName . '%')
+            ->with(['brand:id,name', 'productUnit:id,unit_name'])->paginate(20);;
     }
 
     /**
@@ -65,8 +65,8 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function productsByBrand(int $id)
     {
-        return $this->model->where('brand_id', $id)
-            ->with(['brand:id,name', 'productUnit:id,unit_name'])->get();
+        return $this->model->where('brand_id', $id)->where('active', 1)
+            ->with(['brand:id,name', 'productUnit:id,unit_name'])->paginate(20);;
     }
 
     /**

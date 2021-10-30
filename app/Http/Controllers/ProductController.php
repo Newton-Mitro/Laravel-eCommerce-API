@@ -61,7 +61,7 @@ class ProductController extends Controller
      */
     public function search(string $name)
     {
-        return response()->json(ProductResource::collection($this->productRepo->searchByProductName($name)), Response::HTTP_OK);
+        return ProductResource::collection($this->productRepo->searchByProductName($name));
     }
 
     /**
@@ -72,7 +72,7 @@ class ProductController extends Controller
      */
     public function productsByBrand(Brand $brand)
     {
-        return response()->json(ProductResource::collection($this->productRepo->productsByBrand($brand->id)), Response::HTTP_OK);
+        return ProductResource::collection($this->productRepo->productsByBrand($brand->id));
     }
 
     /**
