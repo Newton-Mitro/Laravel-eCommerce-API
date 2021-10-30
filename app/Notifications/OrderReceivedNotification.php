@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderReceivedNotification extends Notification implements ShouldQueue
+class OrderReceivedNotification extends Notification implements  ShouldQueue
 {
     use Queueable;
 
@@ -40,7 +40,11 @@ class OrderReceivedNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('emails.order.received');
+        return (new MailMessage)
+                    ->line('Dear Admin,')
+                    ->line('An order has been received. Please, check it.')
+                    ->action('Show', url('/'))
+                    ->line('Thank you.');
     }
 
     /**

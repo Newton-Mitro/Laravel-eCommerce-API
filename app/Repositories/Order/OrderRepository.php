@@ -71,8 +71,7 @@ class OrderRepository implements OrderRepositoryInterface
         foreach ($payload['order_items'] as $orderItem) {
             $this->model->orderItems()->create($orderItem);
         }
-
-        User::find(1)->notify(new OrderReceivedNotification);
+        User::find(1)->notify(new OrderReceivedNotification());
         // event(OrderReceivedEvent::class);
         return  $this->model->where('id', $this->model->id)->with(['orderItems', 'deliveryInformation'])->first();
     }

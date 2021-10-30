@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        SeperateDeliveredOrderCommand::class,
     ];
 
     /**
@@ -24,7 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('order:delivered')->dailyAt('15:47');
+        $schedule->command('order:delivered')->dailyAt('00:00');
+//        $schedule->command('order:delivered')->everyFiveMinutes();  // For testing
     }
 
     /**

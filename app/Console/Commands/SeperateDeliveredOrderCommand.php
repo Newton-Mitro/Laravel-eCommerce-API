@@ -42,7 +42,7 @@ class SeperateDeliveredOrderCommand extends Command
     {
         DB::transaction(function () { // Start the transaction
             Order::query()
-                ->where('order_status_id', 6)
+                ->where('order_status_id', 1)
                 ->each(function ($oldRecord) {
                     $newRecord = $oldRecord->replicate();
                     $newRecord->setTable('deliveries');
