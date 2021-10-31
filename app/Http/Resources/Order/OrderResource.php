@@ -10,7 +10,7 @@ class OrderResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -21,7 +21,7 @@ class OrderResource extends JsonResource
             'ordered_by' => $this->createdByUser->name,
             'order_total' => $this->total_price,
             'order_status' => $this->orderStatus->status_name,
-            'delivery_information' => new DeliveryInformationResource($this->deliveryInformation) ,
+            'delivery_information' => new DeliveryInformationResource($this->deliveryInformation),
             'order_items' => route('reviews.index', $this->id),
         ];
     }

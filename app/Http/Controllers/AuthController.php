@@ -88,7 +88,7 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -101,6 +101,7 @@ class AuthController extends Controller
             'user' => new UserResource(auth()->user())
         ]);
     }
+
     /**
      * Get the guard to be used during authentication.
      *

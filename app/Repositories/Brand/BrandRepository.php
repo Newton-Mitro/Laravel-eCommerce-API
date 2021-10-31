@@ -65,7 +65,7 @@ class BrandRepository implements BrandRepositoryInterface
     public function update(int $id, array $payload)
     {
         $brand = $this->model->find($id);
-        return  $brand->update($payload);
+        return $brand->update($payload);
     }
 
     /**

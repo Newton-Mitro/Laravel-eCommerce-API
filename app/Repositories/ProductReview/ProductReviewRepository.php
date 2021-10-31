@@ -65,7 +65,7 @@ class ProductReviewRepository implements ProductReviewRepositoryInterface
     public function update(int $id, array $payload)
     {
         $productReview = $this->model->find($id);
-        return  $productReview->update($payload);
+        return $productReview->update($payload);
     }
 
     /**

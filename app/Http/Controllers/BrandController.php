@@ -19,7 +19,7 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -29,20 +29,19 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        // return response()->json($request->all());
         return response()->json($this->brandRepo->create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Brand $brand
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Brand $brand)
     {
@@ -52,9 +51,9 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Brand $brand
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Brand $brand)
     {
@@ -64,8 +63,8 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Brand $brand
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Brand $brand)
     {

@@ -19,7 +19,7 @@ class SubcategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -29,8 +29,8 @@ class SubcategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -40,8 +40,8 @@ class SubcategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Subcategory $subcategory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Subcategory $subcategory)
     {
@@ -51,9 +51,9 @@ class SubcategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Subcategory $subcategory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Subcategory $subcategory)
     {
@@ -63,8 +63,8 @@ class SubcategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Subcategory $subcategory
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Subcategory $subcategory)
     {

@@ -72,7 +72,7 @@ class OrderRepository implements OrderRepositoryInterface
         }
         User::find(1)->notify(new OrderReceivedNotification());
         // event(OrderReceivedEvent::class);
-        return  $this->model->where('id', $this->model->id)->with(['orderItems', 'deliveryInformation'])->first();
+        return $this->model->where('id', $this->model->id)->with(['orderItems', 'deliveryInformation'])->first();
     }
 
     /**

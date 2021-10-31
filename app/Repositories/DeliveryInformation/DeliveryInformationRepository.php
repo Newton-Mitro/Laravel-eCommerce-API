@@ -65,7 +65,7 @@ class DeliveryInformationRepository implements DeliveryInformationRepositoryInte
     public function update(int $id, array $payload)
     {
         $deliveryInformation = $this->model->find($id);
-        return  $deliveryInformation->update($payload);
+        return $deliveryInformation->update($payload);
     }
 
     /**

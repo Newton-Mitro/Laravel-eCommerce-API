@@ -15,7 +15,6 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = ['total_price', 'created_by', 'updated_by', 'order_status_id'];
-    // protected $guarded = [];
 
     public function deliveryInformation()
     {

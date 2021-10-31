@@ -19,7 +19,7 @@ class OrderStatusController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -29,8 +29,8 @@ class OrderStatusController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -40,8 +40,8 @@ class OrderStatusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrderStatus  $orderStatus
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\OrderStatus $orderStatus
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(OrderStatus $orderStatus)
     {
@@ -51,9 +51,9 @@ class OrderStatusController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrderStatus  $orderStatus
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\OrderStatus $orderStatus
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, OrderStatus $orderStatus)
     {
@@ -63,8 +63,8 @@ class OrderStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrderStatus  $orderStatus
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\OrderStatus $orderStatus
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(OrderStatus $orderStatus)
     {

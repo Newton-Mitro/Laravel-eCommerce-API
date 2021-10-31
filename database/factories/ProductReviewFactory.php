@@ -24,14 +24,12 @@ class ProductReviewFactory extends Factory
     public function definition()
     {
         return [
-            'review' => $this->faker->paragraph(3,true),
-            'star_rating' => $this->faker->numberBetween(1,5),
-            'user_id' => function ()
-            {
+            'review' => $this->faker->paragraph(3, true),
+            'star_rating' => $this->faker->numberBetween(1, 5),
+            'user_id' => function () {
                 return User::all()->random();
             },
-            'product_id' => function ()
-            {
+            'product_id' => function () {
                 return Product::all()->random();
             },
         ];

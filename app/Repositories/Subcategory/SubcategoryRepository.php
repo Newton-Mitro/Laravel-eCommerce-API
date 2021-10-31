@@ -65,7 +65,7 @@ class SubcategoryRepository implements SubcategoryRepositoryInterface
     public function update(int $id, array $payload)
     {
         $subcategory = $this->model->find($id);
-        return  $subcategory->update($payload);
+        return $subcategory->update($payload);
     }
 
     /**

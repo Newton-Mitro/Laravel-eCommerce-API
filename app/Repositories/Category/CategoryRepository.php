@@ -65,7 +65,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function update(int $id, array $payload)
     {
         $category = $this->model->find($id);
-        return  $category->update($payload);
+        return $category->update($payload);
     }
 
     /**

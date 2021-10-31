@@ -90,7 +90,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function update(int $id, array $payload)
     {
         $product = $this->model->find($id);
-        return  $product->update($payload);
+        return $product->update($payload);
     }
 
     /**

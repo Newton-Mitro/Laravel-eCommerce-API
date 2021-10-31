@@ -65,7 +65,7 @@ class RoleRepository implements RoleRepositoryInterface
     public function update(int $id, array $payload)
     {
         $role = $this->model->find($id);
-        return  $role->update($payload);
+        return $role->update($payload);
     }
 
     /**

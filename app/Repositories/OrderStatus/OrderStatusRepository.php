@@ -52,7 +52,6 @@ class OrderStatusRepository implements OrderStatusRepositoryInterface
     public function create(array $payload)
     {
         return $this->model->create($payload);
-        // return $payload;
     }
 
     /**
@@ -65,7 +64,7 @@ class OrderStatusRepository implements OrderStatusRepositoryInterface
     public function update(int $id, array $payload)
     {
         $orderStatus = $this->model->find($id);
-        return  $orderStatus->update($payload);
+        return $orderStatus->update($payload);
     }
 
     /**

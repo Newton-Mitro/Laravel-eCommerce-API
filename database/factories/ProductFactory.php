@@ -27,26 +27,22 @@ class ProductFactory extends Factory
     {
         return [
             'product_code' => $this->faker->numerify('##########'),
-            'product_name' => $this->faker->words(2,true),
-            'discription' => $this->faker->paragraph(3,true),
-            'stock' => $this->faker->numberBetween(1,10),
-            'price' => $this->faker->numberBetween(50,1000),
-            'discount' => $this->faker->numberBetween(5,20),
+            'product_name' => $this->faker->words(2, true),
+            'discription' => $this->faker->paragraph(3, true),
+            'stock' => $this->faker->numberBetween(1, 10),
+            'price' => $this->faker->numberBetween(50, 1000),
+            'discount' => $this->faker->numberBetween(5, 20),
             'active' => $this->faker->boolean(),
-            'category_id' => function ()
-            {
+            'category_id' => function () {
                 return Category::all()->random();
             },
-            'subcategory_id' => function ()
-            {
+            'subcategory_id' => function () {
                 return Subcategory::all()->random();
             },
-            'brand_id' => function ()
-            {
+            'brand_id' => function () {
                 return Brand::all()->random();
             },
-            'product_unit_id' => function ()
-            {
+            'product_unit_id' => function () {
                 return ProductUnit::all()->random();
             },
         ];

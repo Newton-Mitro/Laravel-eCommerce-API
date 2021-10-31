@@ -22,7 +22,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the orders.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -33,7 +33,7 @@ class OrderController extends Controller
      * Get order by user id
      *
      * @param integer $id
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getOrdersByUserId(int $id)
     {
@@ -43,8 +43,8 @@ class OrderController extends Controller
     /**
      * Store a newly created order in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return OrderResource
      */
     public function store(OrderRequest $request)
     {
@@ -55,8 +55,8 @@ class OrderController extends Controller
     /**
      * Display the specified order.
      *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Order $order
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Order $order)
     {
@@ -66,9 +66,9 @@ class OrderController extends Controller
     /**
      * Update the specified order in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Order $order
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(OrderRequest $request, Order $order)
     {
@@ -78,8 +78,8 @@ class OrderController extends Controller
     /**
      * Remove the specified order from storage.
      *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Order $order
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Order $order)
     {

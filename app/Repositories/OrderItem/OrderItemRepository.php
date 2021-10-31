@@ -65,7 +65,7 @@ class OrderItemRepository implements OrderItemRepositoryInterface
     public function update(int $id, array $payload)
     {
         $orderItem = $this->model->find($id);
-        return  $orderItem->update($payload);
+        return $orderItem->update($payload);
     }
 
     /**

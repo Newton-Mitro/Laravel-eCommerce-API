@@ -3,8 +3,6 @@
 namespace App\Exceptions;
 
 use Exception;
-use Throwable;
-use Illuminate\Http\Request;
 use App\Exceptions\ExceptionTrait;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -13,8 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
-
-    use ExceptionTrait;
     /**
      * A list of the exception types that are not reported.
      *
@@ -44,7 +40,6 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (Exception $exception, $request) {
             if ($request->expectsJson()) {
-                // $this->apiException($exception);
                 if ($exception instanceof ModelNotFoundException) {
                     return response()->json([
                         'errors' => 'Model not found'

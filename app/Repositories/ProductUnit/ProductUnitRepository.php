@@ -65,7 +65,7 @@ class ProductUnitRepository implements ProductUnitRepositoryInterface
     public function update(int $id, array $payload)
     {
         $productUnit = $this->model->find($id);
-        return  $productUnit->update($payload);
+        return $productUnit->update($payload);
     }
 
     /**

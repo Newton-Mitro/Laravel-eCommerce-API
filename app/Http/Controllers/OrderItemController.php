@@ -19,7 +19,7 @@ class OrderItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -29,8 +29,8 @@ class OrderItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -40,8 +40,8 @@ class OrderItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrderItem  $orderItem
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\OrderItem $orderItem
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(OrderItem $orderItem)
     {
@@ -51,9 +51,9 @@ class OrderItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrderItem  $orderItem
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\OrderItem $orderItem
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, OrderItem $orderItem)
     {
@@ -63,8 +63,8 @@ class OrderItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrderItem  $orderItem
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\OrderItem $orderItem
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(OrderItem $orderItem)
     {

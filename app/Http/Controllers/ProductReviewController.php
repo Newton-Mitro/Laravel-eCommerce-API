@@ -21,7 +21,7 @@ class ProductReviewController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Product $product)
     {
@@ -31,8 +31,8 @@ class ProductReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -42,8 +42,8 @@ class ProductReviewController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\ProductReview $productReview
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(ProductReview $productReview)
     {
@@ -53,9 +53,9 @@ class ProductReviewController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\ProductReview $productReview
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, ProductReview $productReview)
     {
@@ -65,8 +65,8 @@ class ProductReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductReview  $productReview
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\ProductReview $productReview
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(ProductReview $productReview)
     {

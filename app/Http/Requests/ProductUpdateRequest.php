@@ -24,16 +24,16 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_name' => 'required|string|between:2,255',
-            'product_code' => 'required|string|max:100',
+            'product_name' => 'string|between:2,255',
+            'product_code' => 'string|max:100',
             'discription' => 'string',
-            'stock' => 'required|integer',
-            'price' => 'required|numeric',
+            'stock' => 'integer',
+            'price' => 'numeric',
             'discount' => 'numeric',
-            'category_id' => 'required|integer',
-            'subcategory_id' => 'required|integer',
-            'brand_id' => 'required|integer',
-            'product_unit_id' => 'required|integer',
+            'category_id' => 'integer',
+            'subcategory_id' => 'integer',
+            'brand_id' => 'integer',
+            'product_unit_id' => 'integer',
         ];
     }
 }
