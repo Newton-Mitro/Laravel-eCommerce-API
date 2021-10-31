@@ -38,6 +38,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        $this->authorize('create', Product::class);
         return response()->json(new ProductResource($this->productRepo->create($request->all())), Response::HTTP_CREATED);
     }
 
@@ -83,6 +84,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize('update', $product);
         return response()->json($this->productRepo->update($product->id, $request->all()), Response::HTTP_OK);
     }
 
@@ -94,6 +96,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
         return response()->json($this->productRepo->deleteById($product->id), Response::HTTP_NO_CONTENT);
     }
 }

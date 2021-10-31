@@ -6,6 +6,7 @@ use App\Events\OrderReceivedEvent;
 use App\Models\Order;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\Order\OrderResource;
+use App\Models\Product;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\Order\OrderRepositoryInterface;
 
@@ -15,7 +16,7 @@ class OrderController extends Controller
 
     public function __construct(OrderRepositoryInterface $orderRepo)
     {
-        $this->middleware('auth:api', ['except' => ['store']]);
+        $this->middleware('auth:api');
         $this->orderRepo = $orderRepo;
     }
 
@@ -26,6 +27,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Order::class);
         return response()->json(OrderResource::collection($this->orderRepo->all()), Response::HTTP_OK);
     }
 
@@ -37,6 +39,7 @@ class OrderController extends Controller
      */
     public function getOrdersByUserId(int $id)
     {
+        $this->authorize('viewOnly', Order::class);
         return response()->json(OrderResource::collection($this->orderRepo->getOrdersByUserId($id)), Response::HTTP_OK);
     }
 
@@ -48,6 +51,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
+        $this->authorize('create', Order::class);
         return new OrderResource($this->orderRepo->create($request->all()));
 
     }
@@ -60,6 +64,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $this->authorize('view', $order);
         return response()->json(new OrderResource($this->orderRepo->findById($order->id)), Response::HTTP_OK);
     }
 
@@ -72,6 +77,7 @@ class OrderController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
+        $this->authorize('update', $order);
         return response()->json($this->orderRepo->update($order->id, $request->all()), Response::HTTP_OK);
     }
 
@@ -83,6 +89,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
+        $this->authorize('delete', $order);
         return response()->json($this->orderRepo->deleteById($order->id), Response::HTTP_NO_CONTENT);
     }
 }

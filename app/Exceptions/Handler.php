@@ -7,6 +7,7 @@ use App\Exceptions\ExceptionTrait;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -49,6 +50,12 @@ class Handler extends ExceptionHandler
                 if ($exception instanceof NotFoundHttpException) {
                     return response()->json([
                         'errors' => 'Route not found'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+
+                if ($exception instanceof AccessDeniedHttpException) {
+                    return response()->json([
+                        'errors' => 'You do not have enough permission'
                     ], Response::HTTP_NOT_FOUND);
                 }
             }
