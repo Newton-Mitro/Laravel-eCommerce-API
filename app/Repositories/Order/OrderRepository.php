@@ -65,7 +65,6 @@ class OrderRepository implements OrderRepositoryInterface
      */
     public function create(array $payload)
     {
-        // dd($payload['delivery_information']);
         $this->model = $this->model->create($payload);
         $this->model->deliveryInformation()->create($payload['delivery_information']);
         foreach ($payload['order_items'] as $orderItem) {

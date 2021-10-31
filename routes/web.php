@@ -22,6 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/task', function () {
+Route::get('/test', function () {
 
 });
