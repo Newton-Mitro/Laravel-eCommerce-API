@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderItem\OrderItemResource;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +22,9 @@ class OrderItemController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function findByOrderId(int $orderId)
     {
-        return response()->json($this->orderItemRepo->all(), Response::HTTP_OK);
+        return response()->json(OrderItemResource::collection($this->orderItemRepo->findByOrderId($orderId)), Response::HTTP_OK);
     }
 
     /**
@@ -45,7 +46,7 @@ class OrderItemController extends Controller
      */
     public function show(OrderItem $orderItem)
     {
-        return response()->json($this->orderItemRepo->findById($orderItem->id), Response::HTTP_OK);
+        return response()->json(new OrderItemResource($this->orderItemRepo->findById($orderItem->id)), Response::HTTP_OK);
     }
 
     /**

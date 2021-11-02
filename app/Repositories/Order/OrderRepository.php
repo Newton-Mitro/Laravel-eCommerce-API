@@ -97,6 +97,19 @@ class OrderRepository implements OrderRepositoryInterface
         }
     }
 
+    /**
+     * Update existing status .
+     *
+     * @param int $modelId
+     * @param array $payload
+     * @return bool
+     */
+    public function updateStatus(int $id, array $payload)
+    {
+        $order = $this->model->find($id);
+        return $order->update($payload);
+    }
+
 
     /**
      * Delete model by id.

@@ -6,7 +6,7 @@ use App\Events\OrderReceivedEvent;
 use App\Models\Order;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\Order\OrderResource;
-use App\Models\Product;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repositories\Order\OrderRepositoryInterface;
 
@@ -52,7 +52,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $this->authorize('create', Order::class);
-        return new OrderResource($this->orderRepo->create($request->all()));
+        return response()->json(new OrderResource($this->orderRepo->create($request->all())),Response::HTTP_CREATED);
 
     }
 
@@ -79,6 +79,19 @@ class OrderController extends Controller
     {
         $this->authorize('update', $order);
         return response()->json($this->orderRepo->update($order->id, $request->all()), Response::HTTP_OK);
+    }
+
+    /**
+     * Update the specified order in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Order $order
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateStatus(Request $request, Order $order)
+    {
+        $this->authorize('update', $order);
+        return response()->json($this->orderRepo->updateStatus($order->id, $request->all()), Response::HTTP_OK);
     }
 
     /**

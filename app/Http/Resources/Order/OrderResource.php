@@ -22,7 +22,7 @@ class OrderResource extends JsonResource
             'order_total' => $this->total_price,
             'order_status' => $this->orderStatus->status_name,
             'delivery_information' => new DeliveryInformationResource($this->deliveryInformation),
-            'order_items' => route('reviews.index', $this->id),
+            'order_items' => route('items.by_order', $this->id),
         ];
     }
 }

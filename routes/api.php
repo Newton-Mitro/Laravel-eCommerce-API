@@ -41,8 +41,10 @@ Route::group(['prefix' => 'products'], function () {
 
 Route::apiResource('orders', OrderController::class);
 Route::get('orders/{user}/users', [OrderController::class, 'getOrdersByUserId'])->name('order.users');
+Route::patch('orders/status/{order}', [OrderController::class, 'updateStatus'])->name('order.update_status');
 Route::group(['prefix' => 'orders'], function () {
     Route::apiResource('{order}/items', OrderItemController::class);
+    Route::get('{order}/items', [OrderItemController::class,'findByOrderId'])->name('items.by_order');
 });
 
 Route::apiResource('order-statuses', OrderStatusController::class);

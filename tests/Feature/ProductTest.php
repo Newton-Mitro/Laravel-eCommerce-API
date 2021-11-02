@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductUnit;
+use App\Models\Role;
+use App\Models\Subcategory;
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProductTest extends TestCase
@@ -33,27 +37,19 @@ class ProductTest extends TestCase
 
     public function test_add_product()
     {
-        $this->postJson('/api/brands', [
-            "name" => "ACI",
+        Role::factory()->count(5)->create();
+        $password = 'password';
+        $email = 'admin@email.com';
+        User::factory()->create(['email'=>$email,'password'=>bcrypt($password),'role_id'=>1]);
+        $response = $this->postJson('/api/auth/login', [
+            'email' => $email,
+            'password' => $password,
         ]);
-        $this->assertDatabaseCount('brands', 1);
-
-        $this->postJson('/api/categories', [
-            "name" => "Kitchen",
-        ]);
-        $this->assertDatabaseCount('categories', 1);
-
-        $this->postJson('/api/sub-categories', [
-            "name" => "Oil",
-            "category_id" => 1,
-        ]);
-        $this->assertDatabaseCount('subcategories', 1);
-
-        $product_unit_response = $this->postJson('/api/product-units', [
-            "unit_name" => "Bottle",
-        ]);
-        $product_unit_response->assertCreated();
-        $this->assertDatabaseCount('product_units', 1);
+        $access_token = json_decode($response->content())->access_token;
+        Brand::factory()->count(10)->create();
+        Category::factory()->count(3)->create();
+        Subcategory::factory()->count(20)->create();
+        ProductUnit::factory()->count(5)->create();
 
         $product_response = $this->postJson('/api/products', [
                 "product_name" => "Teer Oil",
@@ -67,7 +63,7 @@ class ProductTest extends TestCase
                 "subcategory_id" => 1,
                 "brand_id" => 1,
                 "product_unit_id" => 1
-            ]
+            ],['access_token'=>$access_token]
         );
         $product_response->assertCreated();
         $this->assertDatabaseCount('products', 1);
@@ -75,78 +71,45 @@ class ProductTest extends TestCase
 
     public function test_product_delete()
     {
-        $this->postJson('/api/brands', [
-            "name" => "ACI",
+        Role::factory()->count(5)->create();
+        $password = 'password';
+        $email = 'admin@email.com';
+        User::factory()->create(['email'=>$email,'password'=>bcrypt($password),'role_id'=>1]);
+        $response = $this->postJson('/api/auth/login', [
+            'email' => $email,
+            'password' => $password,
         ]);
+        $access_token = json_decode($response->content())->access_token;
+        Brand::factory()->count(10)->create();
+        Category::factory()->count(3)->create();
+        Subcategory::factory()->count(20)->create();
+        ProductUnit::factory()->count(5)->create();
+        Product::factory()->create();
 
-        $this->postJson('/api/categories', [
-            "name" => "Kitchen",
-        ]);
-
-        $this->postJson('/api/sub-categories', [
-            "name" => "Oil",
-            "category_id" => 1,
-        ]);
-
-        $this->postJson('/api/product-units', [
-            "unit_name" => "Bottle",
-        ]);
-        $product_response = $this->postJson('/api/products', [
-                "product_name" => "Teer Oil",
-                "product_code" => "842899999",
-                "discription" => "Fresh oil",
-                "stock" => 3,
-                "price" => "66.00",
-                "discount" => "20.00",
-                "active" => 1,
-                "category_id" => 1,
-                "subcategory_id" => 1,
-                "brand_id" => 1,
-                "product_unit_id" => 1
-            ]
+        $product_response = $this->delete('/api/products/1', [],['access_token'=>$access_token]
         );
-        $product_response->assertCreated();
-        $this->assertDatabaseCount('products', 1);
-        $product = Product::find(1);
-        $product->delete();
-        $this->assertModelMissing($product);
+        $product_response->assertNoContent();
         $this->assertDatabaseCount('products', 0);
     }
 
     public function test_product_update()
     {
-        $this->postJson('/api/brands', [
-            "name" => "ACI",
+        Role::factory()->count(5)->create();
+        $password = 'password';
+        $email = 'admin@email.com';
+        User::factory()->create(['email'=>$email,'password'=>bcrypt($password),'role_id'=>1]);
+        $response = $this->postJson('/api/auth/login', [
+            'email' => $email,
+            'password' => $password,
         ]);
+        $access_token = json_decode($response->content())->access_token;
+        Brand::factory()->count(10)->create();
+        Category::factory()->count(3)->create();
+        Subcategory::factory()->count(20)->create();
+        ProductUnit::factory()->count(5)->create();
+        Product::factory()->create();
 
-        $this->postJson('/api/categories', [
-            "name" => "Kitchen",
-        ]);
-
-        $this->postJson('/api/sub-categories', [
-            "name" => "Oil",
-            "category_id" => 1,
-        ]);
-
-        $this->postJson('/api/product-units', [
-            "unit_name" => "Bottle",
-        ]);
-        $this->postJson('/api/products', [
-                "product_name" => "Teer Oil",
-                "product_code" => "842899999",
-                "discription" => "Fresh oil",
-                "stock" => 3,
-                "price" => "66.00",
-                "discount" => "20.00",
-                "active" => 1,
-                "category_id" => 1,
-                "subcategory_id" => 1,
-                "brand_id" => 1,
-                "product_unit_id" => 1
-            ]
-        );
-        $product = Product::first();
-        $update_response = $this->put('/api/products/' . $product->id, [
+        $update_response = $this->put('/api/products/1' , [
             "product_name" => "Teer Soyabin Oil",
             "product_code" => "842899999",
             "discription" => "Fresh oil",
@@ -166,38 +129,21 @@ class ProductTest extends TestCase
 
     public function test_product_update_status()
     {
-        $this->postJson('/api/brands', [
-            "name" => "ACI",
+        Role::factory()->count(5)->create();
+        $password = 'password';
+        $email = 'admin@email.com';
+        User::factory()->create(['email'=>$email,'password'=>bcrypt($password),'role_id'=>1]);
+        $response = $this->postJson('/api/auth/login', [
+            'email' => $email,
+            'password' => $password,
         ]);
-
-        $this->postJson('/api/categories', [
-            "name" => "Kitchen",
-        ]);
-
-        $this->postJson('/api/sub-categories', [
-            "name" => "Oil",
-            "category_id" => 1,
-        ]);
-
-        $this->postJson('/api/product-units', [
-            "unit_name" => "Bottle",
-        ]);
-        $this->postJson('/api/products', [
-                "product_name" => "Teer Oil",
-                "product_code" => "842899999",
-                "discription" => "Fresh oil",
-                "stock" => 3,
-                "price" => "66.00",
-                "discount" => "20.00",
-                "active" => 1,
-                "category_id" => 1,
-                "subcategory_id" => 1,
-                "brand_id" => 1,
-                "product_unit_id" => 1
-            ]
-        );
-        $product = Product::first();
-        $update_response = $this->patch('/api/products/' . $product->id, [
+        $access_token = json_decode($response->content())->access_token;
+        Brand::factory()->count(10)->create();
+        Category::factory()->count(3)->create();
+        Subcategory::factory()->count(20)->create();
+        ProductUnit::factory()->count(5)->create();
+        Product::factory()->create();
+        $update_response = $this->patch('/api/products/1', [
             "active" => 0,
         ]);
         $update_response->assertOk();

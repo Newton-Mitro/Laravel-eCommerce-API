@@ -15,11 +15,8 @@ class CreateDeliveryItemsTable extends Migration
     {
         Schema::create('delivery_items', function (Blueprint $table) {
             $table->id();
-            $table->string('product_code');
-            $table->string('product_name');
-            $table->string('brand')->nullable();
+            $table->unsignedBigInteger('product_id');
             $table->integer('qty');
-            $table->string('product_unit');
             $table->decimal('unit_price');
             $table->timestamps();
             $table->unsignedBigInteger('order_id');

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\OrderItem;
 
+use App\Models\Order;
 use App\Models\OrderItem;
 use App\Repositories\OrderItem\OrderItemRepositoryInterface;
 
@@ -27,9 +28,9 @@ class OrderItemRepository implements OrderItemRepositoryInterface
      *
      * @return Collection
      */
-    public function all()
+    public function findById(int $id)
     {
-        return $this->model->all();
+        return $this->model->find($id);
     }
 
     /**
@@ -38,9 +39,9 @@ class OrderItemRepository implements OrderItemRepositoryInterface
      * @param int $modelId
      * @return Model
      */
-    public function findById(int $id)
+    public function findByOrderId(int $id)
     {
-        return $this->model->find($id);
+        return $this->model->where('order_id',$id)->get();
     }
 
     /**

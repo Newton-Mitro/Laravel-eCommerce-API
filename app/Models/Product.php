@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\ProductUnit;
 use App\Models\Subcategory;
 use App\Models\ProductReview;
+use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -41,5 +42,10 @@ class Product extends Model
     public function productReviews()
     {
         return $this->hasMany(ProductReview::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }
